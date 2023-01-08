@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Pneumovid 22</title>
+  
+  <!-- Favicons -->
+    
+
+  <!-- third party CSS Files -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Template Main CSS File -->
+  <link href="css/base.css" rel="stylesheet">
+
+  
+  <!-- ======================================================== -->
+</head>
+
+<body>
+  <!-- ======= Header ======= -->
+  
+  <div class="container-xl">
+
+      <nav class="navbar navbar-expand-sm navbar-dark">
+        <div class="container-fluid">
+
+          <a class="navbar-brand" href="#">Pneumovid 22</a>
+
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./modelo.html">Modelo</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./dataset.html">Dataset</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./contacto.html">Contacto</a>
+            </li>
+          </ul>
+        </div>
+        </div>
+      </nav><!-- .nav-menu -->
+
+  </div>
+
+  <header class="container-fluid" id="header">
+    <div class="container-xl">   
+      <h2 class="text-light">Aprendisaje Automatico en Accion</h2>   
+      <p class="text-light">Bienvenidos a nuestro proyecto. Cargue una radiografia postero-anteror o 
+        antero-posterior para que nuestra red neuronal evalue la probabilidad de que padesca una pneumonia
+        por covid 19.
+      </p>
+    </div>
+  </header><!-- End Header -->
+
+  <div class="container-xl">
+
+    <div class="row">
+
+      <div class="col-md-6">
+        <div  class="img-container">
+          <img class="img-fluid" src="img/deafault-xray_500x500.jpg" id="imageDisplay">
+        </div>
+        <div class="input-group img-container">
+          <label for="myimage" class="img-loader">Selecciona una radiografia
+            <input type="file" id="myimage" name="myimage" class="img-loaded-button" accept="image/png, image/jpg, image/gif, image/jpeg" onchange="updateImageDisplay(this.files)">
+          </label>          
+        </div>        
+      </div>
+
+      <div class="col-lg-6">
+        <form class="form-content">
+          <h3>Evaluacion de radiografia</h3>
+          <div class="form-group form-groupcontent">
+            <p>Imagen de Radiografia</p>
+            <input type="text" class="form-control" id="imgfilename" aria-describedby="emailHelp" placeholder="Default image" readonly>            
+          </div>
+          <div class="form-group form-groupcontent">
+            <p>Prediccion</p>
+            <input type="text" class="form-control" id="eval_result" placeholder="..." readonly>
+          </div>
+          
+          <button type="button" class="btn btn-primary form-groupcontent" onclick="uploadImagetoServer()">Evaluar</button>
+        </form>  
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="container-fluid" id="footer">
+    <div class="container-xl">         
+      <p class="text-light">Copyright Ramar 2 Bachillerato 2022©</p>
+    </div>    
+  </footer>
+
+  <!-- Vendor JS Files -->
+  <script src="js/jquery-3.6.0.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/main.js"></script>
+</body>

@@ -1,0 +1,136 @@
+@import "navigation.css";
+
+/*--------------------------------------------------------------
+# General
+--------------------------------------------------------------*/
+html {
+  height: 100%;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  background-color: #343438;
+  min-height: 100%;
+}
+
+/*--------------------------------------------------------------
+# Header
+--------------------------------------------------------------*/
+#header {
+  background: black;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+#footer {
+  background: black;
+  padding-top: 5px;
+  padding-bottom: 2px;
+  margin-top: 25px;  
+  position: absolute;
+  bottom:0;
+}
+
+.img-container{
+  width: 100%; 
+  min-width: 400px;
+  max-height: 100%;   
+  margin-top: 15px 
+}
+
+.img-container2{
+  width: 100%; 
+  min-width: 300px;
+  max-width: 500px;
+  max-height: 100%;   
+  margin-top: 15px 
+}
+
+.logo-container{
+  width: 100px;   
+  height: 40px;   
+  float: left;
+  padding-top: 5px;
+  /*background-color: #fff;
+  border-radius: 8px;
+  margin-top: 10px;
+  margin-right: 20px;*/
+}
+
+.img-l{
+  
+  padding: 8px;
+  border-style: solid;
+  border-color: #fff;
+  border-width: 2px;
+  border-radius: 5px;
+  text-align: left;
+  
+  
+  color: #fafafa;
+}
+
+
+.img-loader{
+  
+  padding: 10px 15px;
+  border-style: solid;
+  border-color: #fff;
+  border-width: 2px;
+  border-radius: 5px;
+  text-align: left;
+  font-size: 17px;
+  font-weight: 300;
+  
+  color: #fafafa;
+}
+
+.img-loader:hover{  
+  background: #c8c8df;
+  color: #080815;
+}
+
+.img-loaded-button{
+  display: none;
+}
+
+.header-content{
+  text-align: center;  
+}
+.form-content {
+  border: 3px solid #fff;
+  padding: 10px;
+  margin: 15px ;
+  
+  width: 100%;
+  max-width: 480px;
+  min-width: 300px;  
+  border-radius: 10px;
+  text-align: left;
+  -webkit-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+
+.form-groupcontent {
+  
+  margin: 10px ;
+  
+}
+
+.form-content h3 {
+  color: #fff;
+  text-align: left;
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.form-content p {
+  color: #fff;
+  text-align: left;
+  font-size: 17px;
+  font-weight: 300;
+  margin-bottom: 0px;
+}

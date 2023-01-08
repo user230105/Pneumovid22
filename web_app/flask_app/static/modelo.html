@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Pneumovid 22</title>
+  
+  <!-- Favicons -->
+    
+
+  <!-- third party CSS Files -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/dark.min.css" rel="stylesheet">
+  <!-- Template Main CSS File -->
+  <link href="css/base.css" rel="stylesheet">
+
+  
+  <!-- ======================================================== -->
+</head>
+
+<body>
+  <!-- ======= Header ======= -->
+  
+  <div class="container-xl">
+
+      <nav class="navbar navbar-expand-sm navbar-dark">
+        <div class="container-fluid">
+
+          <a class="navbar-brand" href="#">Pneumovid 22</a>
+
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="./index.html">Inicio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Modelo</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./dataset.html">Dataset</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./contacto.html">Contacto</a>
+            </li>
+          </ul>
+        </div>
+        </div>
+      </nav><!-- .nav-menu -->
+
+  </div>
+
+  <header class="container-fluid" id="header">
+    <div class="container-xl">   
+      <h2 class="text-light">Red neuronal convolucional</h2>         
+      </p>
+    </div>
+  </header><!-- End Header -->
+
+  <div class="container-xl">
+
+    <div class="row">
+
+      <p class="text-light">Las redes neuronales convolucionales son muy utilizadas en el area de la vision por computador. Son utilizadas para tareas de 
+      clasificacion principalmente, consiten en capas de filtros convolucionales para la extraccion de caracteristicas seguidas de capas de neuronas tipo
+      perceptron para la clasificacion final de las caracteristicas extraidas. Una descripcion muy didactica sobre este tipo de redes pueden verlo en este
+      <a href="https://www.youtube.com/watch?v=4sWhhQwHqug">video</a>
+      </p>
+
+      <h3 class="text-light">Arquitectura</h3>
+
+      <p class="text-light"> Se diseño un clasificador binario para detectar solamente dos clase, "positivo" o "negativo" a la pneumonia por covid.
+         Su capa de salida cuenta con una sola neurona con la funcion de activacion sigmoide que da un vector de salida con un valor entre 0 y 1. <br>
+          La capa de entrada consta de una capa que reescala los valores de los pixeles de entre 0 y 255 a un valor entre 0 y 1, y esta preparada para recivir
+          imagenes de entrada con una resolucion de 400x400 y un solo canal, o sea colores en escala de grises.<br>
+          Posteriormente le siguen las capas convolucionales y de muestreo, las cuales se encargan de extraer las caracteristicas de la imagen, luego se aplana el 
+          vector de salida  con una capa tipo "flatten" para poder alimentar al resto de capas de la red neuronal, las cuales realizan la clasificación.</p>
+    </div>
+
+    <div class="row">
+      <pre>
+        <code class="language-python">
+          cnn_model.add(layers.Rescaling(1./255, input_shape = (image_height, image_width, 1)))
+          cnn_model.add(layers.Conv2D(72, (5, 5), activation='relu', use_bias=True))
+          cnn_model.add(layers.MaxPooling2D((2, 2)))          
+          cnn_model.add(layers.Conv2D(104, (4, 4), activation='relu'))
+          cnn_model.add(layers.MaxPooling2D((2, 2)))          
+          cnn_model.add(layers.Conv2D(136, (3, 3), activation='relu'))
+          cnn_model.add(layers.MaxPooling2D((2, 2)))
+          cnn_model.add(layers.Conv2D(170, (3, 3), activation='relu'))
+          cnn_model.add(layers.MaxPooling2D((2, 2)))          
+          cnn_model.add(layers.Conv2D(204, (3, 3), activation='relu'))
+          cnn_model.add(layers.MaxPooling2D((2, 2)))          
+          cnn_model.add(layers.Conv2D(264, (3, 3), activation='relu'))
+          cnn_model.add(layers.MaxPooling2D((2, 2)))
+          cnn_model.add(layers.Conv2D(320, (3, 3), activation='relu'))
+          cnn_model.add(layers.MaxPooling2D((2, 2)))
+
+          #Deep neural network *******************************************************************
+          n_classes = len(train_ds.class_names)
+          cnn_model.add(layers.Flatten())          
+          cnn_model.add(layers.Dense(80, activation='relu'))
+          cnn_model.add(layers.Dropout(0.3))
+          cnn_model.add(layers.Dense(170, activation='relu'))
+          cnn_model.add(layers.Dropout(0.3))
+          cnn_model.add(layers.Dense(350, activation='relu'))         
+          cnn_model.add(layers.Dense(72, activation='relu'))
+          cnn_model.add(layers.Dense(1, activation='sigmoid'))
+        </code>
+      </pre>
+    </div>
+
+    <div class="row">
+      <h3 class="text-light">Entrenamiento</h3>
+
+      <p class="text-light"> El modelo fue entrenado utiliando la funcion de perdida 
+      <a href="https://www.tensorflow.org/api_docs/python/tf/keras/losses/BinaryCrossentropy">BinaryCrossentropy </a> y el optimizador ADAM.
+      Durante la etapa de entrenamiento se utilizaron tecnicas como adicionar capas "dropout" para evitar el "overfitting", asi como "data augmantation" 
+      pera mejorar el desempeño de la red y "early stopping" para detener el entrenamiento una vez se haya alcansado un valor adecuado para la 
+      metrica seleccionada. </p>
+
+      <pre>
+        <code class="language-python">
+          closs_function = keras.losses.BinaryCrossentropy(from_logits = False) 
+          metrics = [keras.metrics.BinaryAccuracy(), keras.metrics.Precision(), keras.metrics.Recall()]           
+          optimizer = keras.optimizers.Adam(learning_rate=0.001)
+
+          cnn_model.compile(optimizer=optimizer, loss=loss_function, metrics=metrics)
+
+          #early stoping when validation accuracy is max for two epoch
+          es = keras.callbacks.EarlyStopping(monitor='val_binary_accuracy', mode='max', 
+                                              min_delta = 0.01, patience = 2, verbose=1)
+
+          flip_translate =  keras.Sequential([
+                                                  layers.RandomTranslation(height_factor = 0.08, 
+                                                  width_factor = 0.08,
+                                                  ),
+                                                  layers.RandomZoom(height_factor = 0.08, 
+                                                  width_factor = 0.08,
+                                                  ),
+                                                  layers.RandomFlip(mode="horizontal")
+                                                  ])
+
+          #data augmentation
+          aug_ds = train_ds.map(lambda x, y: (flip_translate(x, training=True), y))
+          #model training
+          history = cnn_model.fit(aug_ds, epochs = epoch, verbose = 1, validation_data = val_ds, callbacks = [es])
+        </code>
+      </pre>
+    
+    </div>
+
+    <div class="row">
+      <h3 class="text-light">Metricas del Modelo</h3>
+
+      <p class="text-light"> El modelo obtuvo buenos resultados con el dataset de pruebas arrojando las siguientes metricas. 
+      Una explicacion sobre el significado de las metricas se puede encontrar en el siguiente <a href="https://www.iartificial.net/precision-recall-f1-accuracy-en-clasificacion/">enlace</a>
+      </p>
+      <ul class="text-light">
+        <li> Exactitud ("accuacy"): 98%</li>
+        <li> Precisión ("precision"): 98%</li>
+        <li> Exhaustividad ("recall"): 98%</li>
+      </ul>
+
+          
+    </div>
+
+  </div>
+
+  <footer class="container-fluid" id="footer" style="position: relative;">
+    <div class="container-xl">         
+      <p class="text-light">Copyright Ramar 2 Bachillerato 2022©</p>
+    </div>    
+  </footer>
+
+  <!-- Vendor JS Files -->
+  <script src="js/jquery-3.6.0.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/highlight.min.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+      hljs.highlightAll();
+  </script>
+</body>

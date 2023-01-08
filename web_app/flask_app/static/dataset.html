@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Pneumovid 22</title>
+  
+  <!-- Favicons -->
+    
+
+  <!-- third party CSS Files -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/dark.min.css" rel="stylesheet">
+  
+  <!-- Template Main CSS File -->
+  <link href="css/base.css" rel="stylesheet">
+
+  
+  <!-- ======================================================== -->
+</head>
+
+<body>
+  <!-- ======= Header ======= -->
+  
+  <div class="container-xl">
+
+      <nav class="navbar navbar-expand-sm navbar-dark">
+        <div class="container-fluid">
+
+          <a class="navbar-brand" href="#">Pneumovid 22</a>
+
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="./index.html">Inicio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./modelo.html">Modelo</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Dataset</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./contacto.html">Contacto</a>
+            </li>
+          </ul>
+        </div>
+        </div>
+      </nav><!-- .nav-menu -->
+
+  </div>
+
+  <header class="container-fluid" id="header">
+    <div class="container-xl">   
+      <h2 class="text-light">Dataset y procesamiento de imagenes</h2>   
+      <p class="text-light">El modelo fue entrenado utilizando el dataset <a href="https://www.kaggle.com/datasets/andyczhao/covidx-cxr2">COVIDx CXR-2 </a>
+          disponible de forma gratuita.
+      </p>
+    </div>
+  </header><!-- End Header -->
+
+  <div class="container-xl">
+
+    <div class="row">
+
+      <h3 class="text-light">Resumen</h3>
+
+      <p class="text-light">Este dataset está compuesto por 29.986 imágenes etiquetades 
+        de radiografías torácicas de las cuales 13.992 son radiografías negativas para covid-19 y 
+        las restantes 15.994 imágenes son radiografías positivas para covid-19.</p>
+
+      <h3 class="text-light">Procesamiento del dataset</h3>
+
+      <p class="text-light">El dataset una ves descargado y descomprimido cuenta con dos carpetas con imagenes entrenamiento y pruebas, adicionalmente dos archivos de
+        texto con lo metadatos de cada una de las imagenes de cada carpeta.
+      </p>
+
+      <p class="text-light">Primeramente se realiza un escaneo para cada carpeta del dataset y se crea una lista con el camino (path) de cada una
+        de las imagenes </p>
+
+        <pre>
+          <code class="language-python">
+            def scan_covidx_dataset(dataset_path, partition = 'train'):
+
+              subjects_dict = {
+                  'images':[]               
+              }
+
+              try:
+                  dataset_basedir_content = os.scandir(dataset_path)
+                  print('Scanning dataset ', dataset_path)   
+
+                  for direntry in dataset_basedir_content: 
+                      #checing that is a subject directory and subject name            
+                      if direntry.is_file() and direntry.name.lower().endswith(('.png', '.jpg', '.jpeg')): 
+                          subjects_dict['images'].append(direntry.name)                       
+
+
+                  return subjects_dict                     
+
+              except Exception as e:
+                  print("Fail to scan  folder: ", dataset_path)
+                  print(e)
+              pass
+          </code>
+        </pre>
+
+        <p class="text-light">Despues de tener la lista de todas las imagenes de la carpeta, buscamos su etiqueta en el archivo con 
+          los metadatos y se crea una lista de etiquetas </p>
+        
+          <pre>
+            <code class="language-python">
+              print('Start labeling test partition dataset')    
+              dataset_test_dict['class'] = [None] * len(dataset_test_dict['images'])
+          
+              for i in range(len(dataset_test_dict['images'])):  
+          
+                  img_name = dataset_test_dict['images'][i]            
+                  image_row = dataset_test_labels.loc[dataset_test_labels['image'].str.contains(img_name, case=False)] 
+                  if len(image_row) == 1:
+                      label_cell = image_row['class']   
+                      dataset_test_dict['class'][i] = label_cell.values[0]    
+                  else:
+                      dataset_train_dict['class'][i] = 'none'  
+            </code>
+          </pre>
+
+    </div>
+
+    <div class="row">
+
+      <h3 class="text-light">Procesamiento de las imagenes</h3>
+
+      <p class="text-light">Finalmente despues de tener la lista con las imagenes, estan son importadas con la libreria opencv, y procesadas, primeramente normalizadas
+        y luego aplicandole un filtrado CLAHE, basado en el articulo "IMAGE ENHANCEMENT ON DIGITAL X-RAY IMAGES USING N-CLAHE" de los autores (Koonsanit et al) 
+        disponible en el siguiente <a href="https://www.researchgate.net/publication/322004051_Image_enhancement_on_digital_x-ray_images_using_N-CLAHE">enlace</a>. Para 
+        finalmente escalar la imagen a 400x400. </p>
+
+      <p class="text-light">Proceso de mejoramiento de las imagenes se aprecia en la siguiente figura:</p>
+
+      <div class="col-md-4 img-l">
+        <h5>Original</h5>
+        <div  class="img-container2">
+          <img class="img-fluid" src="img/original.png" id="imageDisplay">
+        </div>               
+      </div>
+
+      <div class="col-md-4 img-l">
+        <h5>Normalizada</h5>
+        <div  class="img-container2">
+          <img class="img-fluid" src="img/normalizada.png" id="imageDisplay">
+        </div>               
+      </div>
+
+      <div class="col-md-4 img-l">
+        <h5>Filtrada</h5>
+        <div  class="img-container2">
+          <img class="img-fluid" src="img/filtroclahe.png" id="imageDisplay">
+        </div>               
+      </div>
+
+      <p class="text-light" style="margin-top: 35px;">Fragmentos de codigo de la implementacion utilizando Opencv</p>
+
+      <pre>
+        <code class="language-python">
+
+          refimage = np.zeros(img.shape)          #reference image for normalization
+          #normalizing image
+          return cv2.normalize(img, refimage, 0, max_range, cv2.NORM_MINMAX)
+
+          clahe = cv2.createCLAHE(clipLimit = 10) #clahe filter   
+          # aplying clahe algoritms
+          return clahe.apply(img)
+
+          #resizing image
+          enhimage = cv2.resize(enhimage, shape)
+        </code>
+      </pre>
+
+    </div>
+
+  </div>
+
+  <footer class="container-fluid" id="footer" style="position: relative;">
+    <div class="container-xl">         
+      <p class="text-light">Copyright Ramar 2 Bachillerato 2022©</p>
+    </div>    
+  </footer>
+
+  <!-- Vendor JS Files -->
+  <script src="js/jquery-3.6.0.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/highlight.min.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    hljs.highlightAll();
+  </script>
+</body>
