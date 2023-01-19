@@ -12,7 +12,7 @@
 
   <!-- third party CSS Files -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/dark.min.css" rel="stylesheet">
+  <link href="css/default.min.css" rel="stylesheet">
   
   <!-- Template Main CSS File -->
   <link href="css/base.css" rel="stylesheet">
@@ -58,7 +58,7 @@
 
   <header class="container-fluid" id="header">
     <div class="container-xl">   
-      <h2 class="text-light">Dataset y procesamiento de imagenes</h2>   
+      <h2 class="text-light">Dataset y procesamiento de imágenes</h2>   
       <p class="text-light">El modelo fue entrenado utilizando el dataset <a href="https://www.kaggle.com/datasets/andyczhao/covidx-cxr2">COVIDx CXR-2 </a>
           disponible de forma gratuita.
       </p>
@@ -71,18 +71,18 @@
 
       <h3 class="text-light">Resumen</h3>
 
-      <p class="text-light">Este dataset está compuesto por 29.986 imágenes etiquetades 
-        de radiografías torácicas de las cuales 13.992 son radiografías negativas para covid-19 y 
+      <p class="text-light">Este dataset está compuesto por 29.986 imágenes etiquetadas
+        de radiografías torácicas, de las cuales 13.992 son radiografías negativas para covid-19 y
         las restantes 15.994 imágenes son radiografías positivas para covid-19.</p>
 
       <h3 class="text-light">Procesamiento del dataset</h3>
 
-      <p class="text-light">El dataset una ves descargado y descomprimido cuenta con dos carpetas con imagenes entrenamiento y pruebas, adicionalmente dos archivos de
-        texto con lo metadatos de cada una de las imagenes de cada carpeta.
+      <p class="text-light">El dataset, una vez descargado y descomprimido, cuenta con dos carpetas con imágenes de entrenamiento y pruebas, adicionalmente tiene dos archivos de
+        texto con los metadatos de cada una de las imágenes de cada carpeta.
       </p>
 
-      <p class="text-light">Primeramente se realiza un escaneo para cada carpeta del dataset y se crea una lista con el camino (path) de cada una
-        de las imagenes </p>
+      <p class="text-light">Primero se realiza un escaneo para cada carpeta del dataset y se crea una lista con el camino (path) de cada una
+        de las imágenes </p>
 
         <pre>
           <code class="language-python">
@@ -111,7 +111,7 @@
           </code>
         </pre>
 
-        <p class="text-light">Despues de tener la lista de todas las imagenes de la carpeta, buscamos su etiqueta en el archivo con 
+        <p class="text-light">Después de tener la lista de todas las imágenes de la carpeta, buscamos su etiqueta en el archivo con
           los metadatos y se crea una lista de etiquetas </p>
         
           <pre>
@@ -137,12 +137,12 @@
 
       <h3 class="text-light">Procesamiento de las imagenes</h3>
 
-      <p class="text-light">Finalmente despues de tener la lista con las imagenes, estan son importadas con la libreria opencv, y procesadas, primeramente normalizadas
-        y luego aplicandole un filtrado CLAHE, basado en el articulo "IMAGE ENHANCEMENT ON DIGITAL X-RAY IMAGES USING N-CLAHE" de los autores (Koonsanit et al) 
-        disponible en el siguiente <a href="https://www.researchgate.net/publication/322004051_Image_enhancement_on_digital_x-ray_images_using_N-CLAHE">enlace</a>. Para 
+      <p class="text-light">Después de tener la lista con las imágenes, estas son importadas con la librería opencv y procesadas, primeramente normalizadas
+        y luego aplicando un filtrado CLAHE, basado en el artículo "IMAGE ENHANCEMENT ON DIGITAL X-RAY IMAGES USING N-CLAHE" de los autores (Koonsanit et al)
+        disponible en el siguiente <a href="https://www.researchgate.net/publication/322004051_Image_enhancement_on_digital_x-ray_images_using_N-CLAHE">enlace</a>. Para
         finalmente escalar la imagen a 400x400. </p>
 
-      <p class="text-light">Proceso de mejoramiento de las imagenes se aprecia en la siguiente figura:</p>
+      <p class="text-light">El proceso de mejoramiento de las imágenes se aprecia en la siguiente figura:</p>
 
       <div class="col-md-4 img-l">
         <h5>Original</h5>
@@ -165,7 +165,7 @@
         </div>               
       </div>
 
-      <p class="text-light" style="margin-top: 35px;">Fragmentos de codigo de la implementacion utilizando Opencv</p>
+      <p class="text-light" style="margin-top: 35px;">Fragmentos de código de la implementación utilizando Opencv</p>
 
       <pre>
         <code class="language-python">
