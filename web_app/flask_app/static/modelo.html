@@ -12,7 +12,7 @@
 
   <!-- third party CSS Files -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/dark.min.css" rel="stylesheet">
+  <link href="css/default.min.css" rel="stylesheet">
   <!-- Template Main CSS File -->
   <link href="css/base.css" rel="stylesheet">
 
@@ -66,19 +66,19 @@
 
     <div class="row">
 
-      <p class="text-light">Las redes neuronales convolucionales son muy utilizadas en el area de la vision por computador. Son utilizadas para tareas de 
-      clasificacion principalmente, consiten en capas de filtros convolucionales para la extraccion de caracteristicas seguidas de capas de neuronas tipo
-      perceptron para la clasificacion final de las caracteristicas extraidas. Una descripcion muy didactica sobre este tipo de redes pueden verlo en este
+      <p class="text-light">Las redes neuronales convolucionales son muy utilizadas en el área de la visión por computador. Son utilizadas para tareas de
+      clasificación principalmente, consisten en capas de filtros convolucionales para la extracción de características seguidas de capas de neuronas tipo
+      perceptron para la clasificación final de las características extraídas. Una descripción didáctica sobre este tipo de redes puede verse en este
       <a href="https://www.youtube.com/watch?v=4sWhhQwHqug">video</a>
       </p>
 
       <h3 class="text-light">Arquitectura</h3>
 
-      <p class="text-light"> Se diseño un clasificador binario para detectar solamente dos clase, "positivo" o "negativo" a la pneumonia por covid.
-         Su capa de salida cuenta con una sola neurona con la funcion de activacion sigmoide que da un vector de salida con un valor entre 0 y 1. <br>
-          La capa de entrada consta de una capa que reescala los valores de los pixeles de entre 0 y 255 a un valor entre 0 y 1, y esta preparada para recivir
-          imagenes de entrada con una resolucion de 400x400 y un solo canal, o sea colores en escala de grises.<br>
-          Posteriormente le siguen las capas convolucionales y de muestreo, las cuales se encargan de extraer las caracteristicas de la imagen, luego se aplana el 
+      <p class="text-light"> Se diseñó un clasificador binario para detectar solamente dos clases, "positivo" o "negativo" a la neumonía por covid.
+         Su capa de salida cuenta con una sola neurona con la función de activación sigmoide que da un vector de salida con un valor entre 0 y 1. <br>
+          La capa de entrada consta de una capa que reescala los valores de los píxeles de entre 0 y 255 a un valor entre 0 y 1, y está preparada para recibir
+          imágenes de entrada con una resolución de 400x400 y un solo canal, o sea colores en escala de grises.<br>
+          Posteriormente, le siguen las capas convolucionales y de muestreo, las cuales se encargan de extraer las características de la imagen, luego se aplana el
           vector de salida  con una capa tipo "flatten" para poder alimentar al resto de capas de la red neuronal, las cuales realizan la clasificación.</p>
     </div>
 
@@ -87,28 +87,24 @@
         <code class="language-python">
           cnn_model.add(layers.Rescaling(1./255, input_shape = (image_height, image_width, 1)))
           cnn_model.add(layers.Conv2D(72, (5, 5), activation='relu', use_bias=True))
-          cnn_model.add(layers.MaxPooling2D((2, 2)))          
+          cnn_model.add(layers.MaxPooling2D((2, 2)))
           cnn_model.add(layers.Conv2D(104, (4, 4), activation='relu'))
-          cnn_model.add(layers.MaxPooling2D((2, 2)))          
           cnn_model.add(layers.Conv2D(136, (3, 3), activation='relu'))
           cnn_model.add(layers.MaxPooling2D((2, 2)))
           cnn_model.add(layers.Conv2D(170, (3, 3), activation='relu'))
-          cnn_model.add(layers.MaxPooling2D((2, 2)))          
           cnn_model.add(layers.Conv2D(204, (3, 3), activation='relu'))
-          cnn_model.add(layers.MaxPooling2D((2, 2)))          
-          cnn_model.add(layers.Conv2D(264, (3, 3), activation='relu'))
           cnn_model.add(layers.MaxPooling2D((2, 2)))
+          cnn_model.add(layers.Conv2D(264, (3, 3), activation='relu'))
           cnn_model.add(layers.Conv2D(320, (3, 3), activation='relu'))
           cnn_model.add(layers.MaxPooling2D((2, 2)))
-
           #Deep neural network *******************************************************************
           n_classes = len(train_ds.class_names)
-          cnn_model.add(layers.Flatten())          
+          cnn_model.add(layers.Flatten())
           cnn_model.add(layers.Dense(80, activation='relu'))
           cnn_model.add(layers.Dropout(0.3))
           cnn_model.add(layers.Dense(170, activation='relu'))
           cnn_model.add(layers.Dropout(0.3))
-          cnn_model.add(layers.Dense(350, activation='relu'))         
+          cnn_model.add(layers.Dense(350, activation='relu'))
           cnn_model.add(layers.Dense(72, activation='relu'))
           cnn_model.add(layers.Dense(1, activation='sigmoid'))
         </code>
@@ -118,11 +114,11 @@
     <div class="row">
       <h3 class="text-light">Entrenamiento</h3>
 
-      <p class="text-light"> El modelo fue entrenado utiliando la funcion de perdida 
+      <p class="text-light"> El modelo fue entrenado utilizando la función de pérdida
       <a href="https://www.tensorflow.org/api_docs/python/tf/keras/losses/BinaryCrossentropy">BinaryCrossentropy </a> y el optimizador ADAM.
-      Durante la etapa de entrenamiento se utilizaron tecnicas como adicionar capas "dropout" para evitar el "overfitting", asi como "data augmantation" 
-      pera mejorar el desempeño de la red y "early stopping" para detener el entrenamiento una vez se haya alcansado un valor adecuado para la 
-      metrica seleccionada. </p>
+      Durante la etapa de entrenamiento se utilizaron técnicas como añadir capas "dropout" para evitar el "overfitting", así como "data augmentation"
+      para mejorar el desempeño de la red y "early stopping" para detener el entrenamiento una vez se haya alcanzado un valor adecuado para la
+      métrica seleccionada. </p>
 
       <pre>
         <code class="language-python">
@@ -158,13 +154,13 @@
     <div class="row">
       <h3 class="text-light">Metricas del Modelo</h3>
 
-      <p class="text-light"> El modelo obtuvo buenos resultados con el dataset de pruebas arrojando las siguientes metricas. 
-      Una explicacion sobre el significado de las metricas se puede encontrar en el siguiente <a href="https://www.iartificial.net/precision-recall-f1-accuracy-en-clasificacion/">enlace</a>
+      <p class="text-light"> El modelo obtuvo buenos resultados con el dataset de pruebas arrojando las siguientes métricas.
+      Una explicación sobre el significado de las métricas se puede encontrar en el siguiente <a href="https://www.iartificial.net/precision-recall-f1-accuracy-en-clasificacion/">enlace</a>
       </p>
       <ul class="text-light">
         <li> Exactitud ("accuacy"): 98%</li>
-        <li> Precisión ("precision"): 98%</li>
-        <li> Exhaustividad ("recall"): 98%</li>
+        <li> Precisión ("precision"): 99%</li>
+        <li> Exhaustividad ("recall"): 97%</li>
       </ul>
 
           
