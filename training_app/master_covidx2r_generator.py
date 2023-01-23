@@ -66,7 +66,7 @@ try:
         else:
             dataset_train_dict['class'][i] = 'none'  
 
-    print('Start labeling train partition dataset')     
+    print('Start labeling positive partition dataset')     
     dataset_train_dict['class'] = [None] * len(dataset_train_dict['images'])
     
     for i in range(len(dataset_train_dict['images'])):        

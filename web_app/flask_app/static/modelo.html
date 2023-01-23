@@ -37,16 +37,16 @@
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <a class="nav-link" href="./index.html">Inicio</a>
+              <a class="nav-link" href="./index.html">Inici</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Modelo</a>
+              <a class="nav-link active" aria-current="page" href="#">Model</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="./dataset.html">Dataset</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="./contacto.html">Contacto</a>
+              <a class="nav-link" href="./contacto.html">Contacte</a>
             </li>
           </ul>
         </div>
@@ -57,7 +57,7 @@
 
   <header class="container-fluid" id="header">
     <div class="container-xl">   
-      <h2 class="text-light">Red neuronal convolucional</h2>         
+      <h2 class="text-light">Xarxa neuronal convolucional</h2>         
       </p>
     </div>
   </header><!-- End Header -->
@@ -66,20 +66,20 @@
 
     <div class="row">
 
-      <p class="text-light">Las redes neuronales convolucionales son muy utilizadas en el área de la visión por computador. Son utilizadas para tareas de
-      clasificación principalmente, consisten en capas de filtros convolucionales para la extracción de características seguidas de capas de neuronas tipo
-      perceptron para la clasificación final de las características extraídas. Una descripción didáctica sobre este tipo de redes puede verse en este
-      <a href="https://www.youtube.com/watch?v=4sWhhQwHqug">video</a>
+      <p class="text-light">Les xarxes neuronals convolucionals són molt utilitzades en l'àrea de la visió per computador. Són utilitzades per a tasques de
+ classificació principalment, consisteixen en capes de filtres convolucionals per a l'extracció de característiques seguides de capes de neurones tipus
+ perceptron per a la classificació final de les característiques extretes. Una descripció didàctica sobre aquesta mena de xarxes neuronals es pot veure a aquest
+      <a href="https://www.youtube.com/watch?v=4sWhhQwHqug">vídeo</a>
       </p>
 
       <h3 class="text-light">Arquitectura</h3>
 
-      <p class="text-light"> Se diseñó un clasificador binario para detectar solamente dos clases, "positivo" o "negativo" a la neumonía por covid.
-         Su capa de salida cuenta con una sola neurona con la función de activación sigmoide que da un vector de salida con un valor entre 0 y 1. <br>
-          La capa de entrada consta de una capa que reescala los valores de los píxeles de entre 0 y 255 a un valor entre 0 y 1, y está preparada para recibir
-          imágenes de entrada con una resolución de 400x400 y un solo canal, o sea colores en escala de grises.<br>
-          Posteriormente, le siguen las capas convolucionales y de muestreo, las cuales se encargan de extraer las características de la imagen, luego se aplana el
-          vector de salida  con una capa tipo "flatten" para poder alimentar al resto de capas de la red neuronal, las cuales realizan la clasificación.</p>
+      <p class="text-light"> Es va dissenyar un classificador binari per a detectar únicament dues classes, "positiu" o "negatiu" a la pneumònia per covid-19.La seva 
+          capa de sortida compta amb una sola neurona amb la funció d'activació sigmoide que dona un vector de sortida amb un valor entre 0 i 1. <br>
+          La capa d'entrada consta d'una capa que reescala els valors dels píxels d'entre 0 i 255 a un valor entre 0 i 1, i està preparada per a rebreimatges d'entrada 
+          amb una resolució de 400x400 en un sol canal, és a dir colors en escala de grises.<br>
+          Posteriorment, li segueixen les capes convolucionals i de mostreig, les quals s'encarreguen d'extreure les característiques de la imatge, després s'aplana 
+          el vector de sortida amb una capa tipus "flatten" per a poder alimentar a la resta de capes de la xarxa neuronal, les quals realitzen la classificació.</p>
     </div>
 
     <div class="row">
@@ -112,13 +112,13 @@
     </div>
 
     <div class="row">
-      <h3 class="text-light">Entrenamiento</h3>
+      <h3 class="text-light">Entrenament</h3>
 
-      <p class="text-light"> El modelo fue entrenado utilizando la función de pérdida
-      <a href="https://www.tensorflow.org/api_docs/python/tf/keras/losses/BinaryCrossentropy">BinaryCrossentropy </a> y el optimizador ADAM.
-      Durante la etapa de entrenamiento se utilizaron técnicas como añadir capas "dropout" para evitar el "overfitting", así como "data augmentation"
-      para mejorar el desempeño de la red y "early stopping" para detener el entrenamiento una vez se haya alcanzado un valor adecuado para la
-      métrica seleccionada. </p>
+      <p class="text-light"> El model va ser entrenat utilitzant la funció de pèrdua
+      <a href="https://www.tensorflow.org/api_docs/python/tf/keras/losses/BinaryCrossentropy">BinaryCrossentropy </a> i el optimizador ADAM.
+ Durant l'etapa d'entrenament es van utilitzar tècniques com afegir capes "dropout" per a evitar el "overfitting", així com "data augmentation"
+ per a millorar els resultats de la xarxa i "early stopping" per a detenir l'entrenament una vegada s'hagi aconseguit un valor adequat per a la
+ mètrica seleccionada. </p>
 
       <pre>
         <code class="language-python">
@@ -152,15 +152,15 @@
     </div>
 
     <div class="row">
-      <h3 class="text-light">Metricas del Modelo</h3>
+      <h3 class="text-light">Mètriques del Model</h3>
 
-      <p class="text-light"> El modelo obtuvo buenos resultados con el dataset de pruebas arrojando las siguientes métricas.
-      Una explicación sobre el significado de las métricas se puede encontrar en el siguiente <a href="https://www.iartificial.net/precision-recall-f1-accuracy-en-clasificacion/">enlace</a>
+      <p class="text-light"> El model va obtenir bons resultats amb el dataset de proves amb les següents mètriques.
+Una explicació sobre el significat de les mètriques es pot trobar en el següent <a href="https://www.iartificial.net/precision-recall-f1-accuracy-en-clasificacion/">enllaç</a>
       </p>
       <ul class="text-light">
-        <li> Exactitud ("accuacy"): 98%</li>
-        <li> Precisión ("precision"): 99%</li>
-        <li> Exhaustividad ("recall"): 97%</li>
+        <li> Exactitud ("accuracy"): 98%</li>
+        <li> Precisió ("precision"): 99%</li>
+        <li> Exhaustivitat ("recall"): 97%</li>
       </ul>
 
           
@@ -170,7 +170,7 @@
 
   <footer class="container-fluid" id="footer" style="position: relative;">
     <div class="container-xl">         
-      <p class="text-light">Copyright Ramar 2 Bachillerato 2022©</p>
+      <p class="text-light">Copyright Ramar 2 Batxillerat 2022©</p>
     </div>    
   </footer>
 

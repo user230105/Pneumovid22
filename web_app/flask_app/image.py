@@ -48,7 +48,8 @@ def enhance_image(img, shape):
     filter_image =  clahe.apply(image)
     #resizing image
     enhimage = cv2.resize(filter_image, shape)
-    return enhimage/255.0
+    #return enhimage/255.0
+    return enhimage
 
 def show(img):
     print('image from server')

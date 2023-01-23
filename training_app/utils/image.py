@@ -36,13 +36,13 @@ def enhance_image(img, shape, max_range = 255):
     -------
      enhimage: numpy ndarray
     '''         
-       
+    #resizing image
+    enhimage = cv2.resize(img, shape)   
     #normalizing image
-    enhimage = normalize_image(img, max_range) 
+    enhimage = normalize_image(enhimage, max_range) 
     # aplying clahe algoritms
     enhimage = clahe_filtering(enhimage)
-    #resizing image
-    enhimage = cv2.resize(enhimage, shape)
+    #returning an images with values between 0-1 instead off 0-255
     return enhimage
 
 def normalize_image(img, max_range = 255):

@@ -1,6 +1,7 @@
 #IMPORTS*********************************************************************************
 #standard lib
 import argparse
+from concurrent.futures import process
 import configparser
 import os
 #os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
@@ -58,20 +59,21 @@ if os.path.exists(cnn_model_path):
         eval_train_ds = keras.utils.image_dataset_from_directory(dataset_train_path,
                                                          image_size=imshape, 
                                                          color_mode='grayscale',
-                                                         label_mode = "categorical",
+                                                         label_mode = "int",
                                                          batch_size=img_batch)
 
         eval_test_ds = keras.utils.image_dataset_from_directory(dataset_test_path,
                                                          image_size=imshape, 
                                                          color_mode='grayscale',
-                                                         label_mode = "categorical",
+                                                         label_mode = "int",
                                                          batch_size=img_batch)                                                 
 
         eval_val_ds = keras.utils.image_dataset_from_directory(dataset_val_path,
                                                          image_size=imshape, 
                                                          color_mode='grayscale',
-                                                         label_mode = "categorical",
+                                                         label_mode = "int",
                                                          batch_size=img_batch)
+        print(eval_train_ds)
 
         #evaluating agains train partition  
         print('evaluating again train partition')                                               

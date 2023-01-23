@@ -72,7 +72,7 @@ def get_label_sparse(prediction):
 app.get_label_sparse = get_label_sparse
 
 def get_label_categorical(prediction):
-    y = prediction[0]   
+    y = prediction[0]       
     index_label = y.argmax()
     return labels[index_label]
     

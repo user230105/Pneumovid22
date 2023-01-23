@@ -13,8 +13,7 @@ def index():
 def predict():
     print('prediction request')
     if 'file' not in request.files:            
-            flash('No se selecciono ninguna imagen'
-            print('No image selected')
+            flash('No se selecciono ninguna imagen')
             return redirect(request.url)
 
     file = request.files['file']
@@ -22,13 +21,12 @@ def predict():
     # empty file without a filename.
     if file.filename == '':        
         flash('No se selecciono ninguna imagen')
-        print('No image name')
         return redirect(request.url)
 
     if file and app.allowed_file(file.filename):
         
         X = app.get_input_tensor(file)
-           
+        print(X.shape)    
         cnn_prediction = app.model.predict(X)
         print('prediction: ', cnn_prediction)
         label = app.get_label_sparse(cnn_prediction)       
@@ -36,5 +34,3 @@ def predict():
         print(label)     
         prediction = {'prediction' : str(cnn_prediction), 'result' : label}
         return jsonify(prediction)
-    else:
-        print('Not allowed file')

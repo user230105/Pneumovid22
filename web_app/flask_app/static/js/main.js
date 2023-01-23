@@ -51,7 +51,7 @@ function uploadImagetoServer(){
 
     //get result placeholder
     evalElement = document.getElementById("eval_result");
-
+    evalElement.value = '...'
     console.log(imgFile.files)
     if(imgFile.files.length > 0){
         console.log('files')

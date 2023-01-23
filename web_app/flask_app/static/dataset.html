@@ -38,16 +38,16 @@
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <a class="nav-link" href="./index.html">Inicio</a>
+              <a class="nav-link" href="./index.html">Inici</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="./modelo.html">Modelo</a>
+              <a class="nav-link" href="./modelo.html">Model</a>
             </li>
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="#">Dataset</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="./contacto.html">Contacto</a>
+              <a class="nav-link" href="./contacto.html">Contacte</a>
             </li>
           </ul>
         </div>
@@ -58,9 +58,9 @@
 
   <header class="container-fluid" id="header">
     <div class="container-xl">   
-      <h2 class="text-light">Dataset y procesamiento de imágenes</h2>   
-      <p class="text-light">El modelo fue entrenado utilizando el dataset <a href="https://www.kaggle.com/datasets/andyczhao/covidx-cxr2">COVIDx CXR-2 </a>
-          disponible de forma gratuita.
+      <h2 class="text-light">Dataset i processament d'imatges</h2>   
+      <p class="text-light">El model va ser entrenat utilitzant el dataset <a href="https://www.kaggle.com/datasets/andyczhao/covidx-cxr2">COVIDx CXR-2 </a>
+          disponible de manera gratuïta.
       </p>
     </div>
   </header><!-- End Header -->
@@ -71,18 +71,16 @@
 
       <h3 class="text-light">Resumen</h3>
 
-      <p class="text-light">Este dataset está compuesto por 29.986 imágenes etiquetadas
-        de radiografías torácicas, de las cuales 13.992 son radiografías negativas para covid-19 y
-        las restantes 15.994 imágenes son radiografías positivas para covid-19.</p>
+      <p class="text-light">Aquest dataset està compost per 29.986 imatges etiquetadesde radiografies toràciques, de les quals 13.992 són radiografies negatives
+       per a COVID-19 iles restants 15.994 imatges són radiografies positives per a COVID-19.</p>
 
-      <h3 class="text-light">Procesamiento del dataset</h3>
+      <h3 class="text-light">Processament del dataset</h3>
 
-      <p class="text-light">El dataset, una vez descargado y descomprimido, cuenta con dos carpetas con imágenes de entrenamiento y pruebas, adicionalmente tiene dos archivos de
-        texto con los metadatos de cada una de las imágenes de cada carpeta.
+      <p class="text-light">El dataset, una vegada descarregat i descomprimit, compta amb dues carpetes amb imatges d'entrenament i proves, addicionalment té dos 
+      arxius de text amb les metadades de cadascuna de les imatges de cada carpeta.
       </p>
 
-      <p class="text-light">Primero se realiza un escaneo para cada carpeta del dataset y se crea una lista con el camino (path) de cada una
-        de las imágenes </p>
+      <p class="text-light">Primer es realitza un escaneig per a cada carpeta del dataset i es crea una llista amb el camí (path) de cadascuna de les imatges. </p>
 
         <pre>
           <code class="language-python">
@@ -111,8 +109,8 @@
           </code>
         </pre>
 
-        <p class="text-light">Después de tener la lista de todas las imágenes de la carpeta, buscamos su etiqueta en el archivo con
-          los metadatos y se crea una lista de etiquetas </p>
+        <p class="text-light">Després de tenir la llista de totes les imatges de la carpeta, busquem la seva etiqueta en l'arxiu ambles metadades i es crea una 
+        llista d'etiquetes.</p>
         
           <pre>
             <code class="language-python">
@@ -135,14 +133,13 @@
 
     <div class="row">
 
-      <h3 class="text-light">Procesamiento de las imagenes</h3>
+      <h3 class="text-light">Processament de les imatges</h3>
 
-      <p class="text-light">Después de tener la lista con las imágenes, estas son importadas con la librería opencv y procesadas, primeramente normalizadas
-        y luego aplicando un filtrado CLAHE, basado en el artículo "IMAGE ENHANCEMENT ON DIGITAL X-RAY IMAGES USING N-CLAHE" de los autores (Koonsanit et al)
-        disponible en el siguiente <a href="https://www.researchgate.net/publication/322004051_Image_enhancement_on_digital_x-ray_images_using_N-CLAHE">enlace</a>. Para
-        finalmente escalar la imagen a 400x400. </p>
+      <p class="text-light">Després de tenir la llista amb les imatges, aquestes són importades amb la llibreria opencv i processades, primerament normalitzades i després aplicant un filtratge CLAHE, basat 
+        en l'article "IMAGE ENHANCEMENT ON DIGITAL X-RAY IMAGES USING N-CLAHE" dels autors (Koonsanit et al)
+        disponible en el següent <a href="https://www.researchgate.net/publication/322004051_Image_enhancement_on_digital_x-ray_images_using_N-CLAHE">enllaç</a>. Per a finalment escalar la imatge a 400x400. </p>
 
-      <p class="text-light">El proceso de mejoramiento de las imágenes se aprecia en la siguiente figura:</p>
+      <p class="text-light">El procés de millorament de les imatges s'observa en la següent figura:</p>
 
       <div class="col-md-4 img-l">
         <h5>Original</h5>
@@ -152,7 +149,7 @@
       </div>
 
       <div class="col-md-4 img-l">
-        <h5>Normalizada</h5>
+        <h5>Normalitzada</h5>
         <div  class="img-container2">
           <img class="img-fluid" src="img/normalizada.png" id="imageDisplay">
         </div>               
@@ -165,7 +162,7 @@
         </div>               
       </div>
 
-      <p class="text-light" style="margin-top: 35px;">Fragmentos de código de la implementación utilizando Opencv</p>
+      <p class="text-light" style="margin-top: 35px;">Fragments de codi de la implementació utilitzant Opencv.</p>
 
       <pre>
         <code class="language-python">
@@ -189,7 +186,7 @@
 
   <footer class="container-fluid" id="footer" style="position: relative;">
     <div class="container-xl">         
-      <p class="text-light">Copyright Ramar 2 Bachillerato 2022©</p>
+      <p class="text-light">Copyright Ramar 2 Batxillerat 2022©</p>
     </div>    
   </footer>
 

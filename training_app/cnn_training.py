@@ -53,7 +53,6 @@ imshape = (image_width, image_height)
 
 img_batch = int(config['train']['image_batch'])  #number of image per batch
 #***********************************************************************************************************
-
 #Preparing Data Seccion *****************************************************************
 #constructor for a generator for image data augmentation
 
@@ -107,7 +106,7 @@ cnn_model = models.Sequential()
 loss_function = keras.losses.BinaryCrossentropy(from_logits = False) 
 metrics = [keras.metrics.BinaryAccuracy(), keras.metrics.Precision(), keras.metrics.Recall()] 
 
-optimizer = keras.optimizers.Adam(learning_rate=0.001)
+optimizer = keras.optimizers.Adam(learning_rate=0.0001)
 
 #Regularizer
 l2 = keras.regularizers.l2
@@ -116,33 +115,35 @@ l1 = keras.regularizers.l1
 
 # Convolutional ***************************************************************************
 cnn_model.add(layers.Rescaling(1./255, input_shape = (image_height, image_width, 1)))
-cnn_model.add(layers.Conv2D(80, (6, 6), activation='relu', use_bias=True))
+cnn_model.add(layers.Conv2D(72, (5, 5), activation='relu', use_bias=True))
+cnn_model.add(layers.MaxPooling2D((2, 2)))
+#cnn_model.add(layers.Dropout(0.3))
+cnn_model.add(layers.Conv2D(104, (4, 4), activation='relu'))
 #cnn_model.add(layers.MaxPooling2D((2, 2)))
-cnn_model.add(layers.Dropout(0.3))
-cnn_model.add(layers.Conv2D(112, (4, 4), activation='relu'))
+#cnn_model.add(layers.Dropout(0.2))
+cnn_model.add(layers.Conv2D(136, (3, 3), activation='relu'))
 cnn_model.add(layers.MaxPooling2D((2, 2)))
-cnn_model.add(layers.Dropout(0.2))
-cnn_model.add(layers.Conv2D(144, (3, 3), activation='relu'))
-cnn_model.add(layers.Conv2D(178, (3, 3), activation='relu'))
-cnn_model.add(layers.MaxPooling2D((2, 2)))
-cnn_model.add(layers.Dropout(0.3))
+cnn_model.add(layers.Conv2D(170, (3, 3), activation='relu'))
+#cnn_model.add(layers.MaxPooling2D((2, 2)))
+#cnn_model.add(layers.Dropout(0.3))
 cnn_model.add(layers.Conv2D(204, (3, 3), activation='relu'))
-cnn_model.add(layers.Conv2D(224, (3, 3), activation='relu'))
 cnn_model.add(layers.MaxPooling2D((2, 2)))
-cnn_model.add(layers.Dropout(0.1))
-cnn_model.add(layers.Conv2D(272, (3, 3), activation='relu'))
-cnn_model.add(layers.Conv2D(328, (2, 2), activation='relu'))
+#cnn_model.add(layers.Dropout(0.1))
+cnn_model.add(layers.Conv2D(264, (3, 3), activation='relu'))
+#cnn_model.add(layers.MaxPooling2D((2, 2)))
+cnn_model.add(layers.Conv2D(320, (3, 3), activation='relu'))
 cnn_model.add(layers.MaxPooling2D((2, 2)))
-#***************************************************************************************
 #Deep neural network *******************************************************************
 n_classes = len(train_ds.class_names)
 cnn_model.add(layers.Flatten())
-cnn_model.add(layers.Dropout(0.2))
-cnn_model.add(layers.Dense(72, activation='relu'))
+#cnn_model.add(layers.Dropout(0.2))
+cnn_model.add(layers.Dense(80, activation='relu'))
 cnn_model.add(layers.Dropout(0.3))
-cnn_model.add(layers.Dense(96, activation='relu'))
 cnn_model.add(layers.Dense(170, activation='relu'))
-cnn_model.add(layers.Dropout(0.2))
+cnn_model.add(layers.Dropout(0.3))
+cnn_model.add(layers.Dense(350, activation='relu'))
+#cnn_model.add(layers.Dropout(0.2))
+cnn_model.add(layers.Dense(72, activation='relu'))
 cnn_model.add(layers.Dense(1, activation='sigmoid'))
 #****************************************************************************************
 
@@ -160,7 +161,7 @@ print('Starting Training ...')
 epoch = int(config['train']['epoch'])  #number of epoch
 #early stoping when validation accuracy is max for two epoch
 es = keras.callbacks.EarlyStopping(monitor='val_binary_accuracy', mode='max', 
-                                    min_delta = 0.01, patience = 2, verbose=1)
+                                    min_delta = 0.001, patience = 10, verbose=1)
 
 flip_translate =  keras.Sequential([
                                         layers.RandomTranslation(height_factor = 0.08, 

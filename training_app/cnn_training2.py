@@ -8,6 +8,7 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 
+import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers, models
 from keras.utils import np_utils
@@ -107,7 +108,7 @@ cnn_model = models.Sequential()
 loss_function = keras.losses.CategoricalCrossentropy(from_logits = False) 
 metrics = [keras.metrics.BinaryAccuracy(), keras.metrics.Precision(), keras.metrics.Recall()] 
 
-optimizer = keras.optimizers.Adam(learning_rate=0.001)
+optimizer = keras.optimizers.Adam(learning_rate=0.0001)
 
 #Regularizer
 l2 = keras.regularizers.l2
@@ -115,35 +116,37 @@ l1 = keras.regularizers.l1
 
 
 # Convolutional ***************************************************************************
-cnn_model.add(layers.Conv2D(80, (6, 6), activation='relu', 
+cnn_model.add(layers.Conv2D(72, (5, 5), activation='relu', 
                  input_shape = (image_height, image_width, 1), use_bias=True))
-cnn_model.add(layers.Conv2D(112, (4, 4), activation='relu'))
 cnn_model.add(layers.MaxPooling2D((2, 2)))
-
-cnn_model.add(layers.Dropout(0.1))
-cnn_model.add(layers.Conv2D(144, (3, 3), activation='relu'))
-cnn_model.add(layers.Conv2D(178, (3, 3), activation='relu'))
+#cnn_model.add(layers.Dropout(0.3))
+cnn_model.add(layers.Conv2D(104, (4, 4), activation='relu'))
 cnn_model.add(layers.MaxPooling2D((2, 2)))
-
-cnn_model.add(layers.Dropout(0.2))
+#cnn_model.add(layers.Dropout(0.2))
+cnn_model.add(layers.Conv2D(136, (3, 3), activation='relu'))
+cnn_model.add(layers.MaxPooling2D((2, 2)))
+cnn_model.add(layers.Conv2D(170, (3, 3), activation='relu'))
+cnn_model.add(layers.MaxPooling2D((2, 2)))
+#cnn_model.add(layers.Dropout(0.3))
 cnn_model.add(layers.Conv2D(204, (3, 3), activation='relu'))
-cnn_model.add(layers.Conv2D(224, (3, 3), activation='relu'))
 cnn_model.add(layers.MaxPooling2D((2, 2)))
-
-cnn_model.add(layers.Dropout(0.1))
-cnn_model.add(layers.Conv2D(272, (3, 3), activation='relu'))
-cnn_model.add(layers.Conv2D(328, (2, 2), activation='relu'))
+#cnn_model.add(layers.Dropout(0.1))
+cnn_model.add(layers.Conv2D(264, (3, 3), activation='relu'))
+cnn_model.add(layers.MaxPooling2D((2, 2)))
+cnn_model.add(layers.Conv2D(320, (3, 3), activation='relu'))
 cnn_model.add(layers.MaxPooling2D((2, 2)))
 #***************************************************************************************
 #Deep neural network *******************************************************************
 n_classes = len(train_generator.class_indices)
 cnn_model.add(layers.Flatten())
-cnn_model.add(layers.Dropout(0.2))
+#cnn_model.add(layers.Dropout(0.2))
 cnn_model.add(layers.Dense(80, activation='relu'))
 cnn_model.add(layers.Dropout(0.3))
-cnn_model.add(layers.Dense(128, activation='relu'))
-cnn_model.add(layers.Dense(196, activation='relu'))
-cnn_model.add(layers.Dropout(0.2))
+cnn_model.add(layers.Dense(170, activation='relu'))
+cnn_model.add(layers.Dropout(0.3))
+cnn_model.add(layers.Dense(350, activation='relu'))
+#cnn_model.add(layers.Dropout(0.2))
+cnn_model.add(layers.Dense(72, activation='relu'))
 cnn_model.add(layers.Dense(n_classes, activation='softmax'))
 #****************************************************************************************
 
@@ -163,12 +166,13 @@ steps_epoch = int(train_generator.samples/img_batch)
 val_steps = int(val_generator.samples/img_batch)
 
 #early stoping when validation accuracy is max for two epoch
-es = keras.callbacks.EarlyStopping(monitor='val_binary_accuracy', mode='max', 
-                                    min_delta = 0.01, patience = 2, verbose=1)
+es = tf.keras.callbacks.EarlyStopping(monitor='loss', 
+                                    min_delta = 0, patience = 4, verbose= 1, mode="min", baseline= None, restore_best_weights=True)
 try:
     history = cnn_model.fit(train_generator, epochs = epoch,
-                            steps_per_epoch = steps_epoch, verbose = 1, shuffle=True,
-                            validation_data = val_generator, validation_steps = val_steps, callbacks = [es])
+                            steps_per_epoch = steps_epoch, shuffle=True,
+                            validation_data = val_generator, validation_steps = val_steps, callbacks = [es], verbose = 1)
+    
 
     # summarize history for loss
     u_models.plot_training(history, 'loss')
